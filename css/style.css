@@ -245,7 +245,7 @@ button{
 }
 
 .hero-left h1{
-  font-size:64px;
+  font-size:56px;
   line-height:1.1;
   margin-bottom:25px;
 }
@@ -268,7 +268,7 @@ button{
 
 .hero-card{
   background:#fff;
-  padding:45px;
+  padding:30px;
   border-radius:30px;
   box-shadow:0 20px 60px rgba(0,0,0,.08);
   max-width:500px;
@@ -298,7 +298,7 @@ button{
 
 .stat-item p{
   color:var(--text-light);
-  font-size:42px;
+  font-size:18px;
 }
 
 /* =========================
@@ -591,6 +591,34 @@ tr{
 /* =========================
    RESPONSIVE
 ========================= */
+@media(max-width:1200px){
+
+  .hero{
+    gap:40px;
+    padding:80px 20px;
+  }
+
+  .hero-left h1{
+    font-size:48px;
+  }
+
+  .hero-left p{
+    font-size:17px;
+  }
+
+  .hero-card{
+    padding:30px;
+  }
+
+  .stat-item h2{
+    font-size:28px;
+  }
+
+  .stat-item p{
+    font-size:16px;
+  }
+}
+
 @media(max-width:900px){
 
   body{
@@ -665,14 +693,14 @@ tr{
   }
 }
 
-@media(max-width:1200px){
+@media(min-width:1400px){
 
   .hero-left h1{
-    font-size:52px;
+    font-size:64px;
   }
 
   .hero-left p{
-    font-size:17px;
+    font-size:19px;
   }
 }
 
