@@ -48,10 +48,12 @@ body{
 /* =========================
    CONTAINER
 ========================= */
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:30px 20px;
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
 }
 
 /* =========================
