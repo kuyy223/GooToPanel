@@ -93,10 +93,12 @@ button{
 /* =========================
    CONTAINER
 ========================= */
-.container{
-  width:92%;
-  max-width:1400px;
-  margin:0 auto;
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* =========================
