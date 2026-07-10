@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard - GooToPanel</title>
+
+  <link rel="stylesheet"
+        href="css/dashboard.css">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+
+  <div class="logo">
+    GooToPanel
+  </div>
+
+  <button id="logoutBtn" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
+  </button>
+
+</nav>
+
+<!-- Container -->
+<div class="container">
+
+  <!-- Profile -->
+  <div class="profile-card">
+
+    <div class="profile-left">
+
+      <img
+        id="userPhoto"
+        src="https://ui-avatars.com/api/?name=User"
+        class="profile-img">
+
+      <div>
+
+        <h2 id="userName">
+          Loading...
+        </h2>
+
+        <p id="userEmail">
+          Loading...
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="balance-box">
+
+      <h4>Saldo</h4>
+
+      <h2 id="userBalance">
+        Rp0
+      </h2>
+
+    </div>
+
+  </div>
+
+  <!-- Form Order -->
+  <div class="card">
+
+    <h3>Buat Pesanan</h3>
+
+    <div class="input-group">
+      <label>Kategori</label>
+
+      <select id="category">
+        <option value="">
+          Pilih Kategori
+        </option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Layanan</label>
+
+      <select id="service">
+        <option value="">
+          Pilih Layanan
+        </option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Target / Link</label>
+
+      <input
+        type="text"
+        id="target"
+        placeholder="Masukkan link target">
+    </div>
+
+    <div class="input-group">
+      <label>Jumlah</label>
+
+      <input
+        type="number"
+        id="quantity"
+        placeholder="Masukkan jumlah">
+    </div>
+
+    <div class="input-group">
+      <label>Total Harga</label>
+
+      <input
+        type="text"
+        id="totalPrice"
+        value="Rp0"
+        readonly>
+    </div>
+
+    <button
+      id="orderBtn"
+      class="order-btn">
+      Buat Pesanan
+    </button>
+
+  </div>
+
+  <!-- Riwayat -->
+  <div class="card">
+
+    <h3>Riwayat Pesanan</h3>
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Layanan</th>
+            <th>Jumlah</th>
+            <th>Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody id="orderList">
+
+          <tr>
+            <td colspan="4">
+              Belum ada pesanan.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script type="module"
+        src="js/dashboard.js">
+</script>
+
+</body>
+</html>

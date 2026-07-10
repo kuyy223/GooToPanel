@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - GooToPanel</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="auth-page">
+
+  <!-- Navbar -->
+  <header class="auth-navbar">
+    <a href="index.html" class="auth-logo">
+      GooToPanel
+    </a>
+
+    <a href="login.html" class="auth-nav-btn">
+      Login
+    </a>
+  </header>
+
+  <!-- Register -->
+  <section class="auth-section">
+
+    <div class="auth-card">
+
+      <div class="auth-header">
+        <h1>Buat Akun Baru 🚀</h1>
+
+        <p>
+          Daftar sekarang dan mulai gunakan
+          layanan GooToPanel.
+        </p>
+      </div>
+
+      <form
+        id="registerForm"
+        onsubmit="event.preventDefault(); register();">
+
+        <div class="input-group">
+          <label for="name">Username</label>
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Masukkan username"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Masukkan email"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+
+          <div class="password-box">
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan password"
+              required>
+
+            <i
+              class="fa-solid fa-eye password-toggle"
+              id="togglePassword">
+            </i>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="confirmPassword">
+            Konfirmasi Password
+          </label>
+
+          <div class="password-box">
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Ulangi password"
+              required>
+
+            <i
+              class="fa-solid fa-eye password-toggle"
+              id="toggleConfirmPassword">
+            </i>
+          </div>
+        </div>
+
+        <div class="remember-box">
+          <label class="checkbox">
+            <input
+              type="checkbox"
+              id="agree"
+              required>
+
+            Saya menyetujui syarat dan ketentuan.
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="auth-btn">
+          Daftar Sekarang
+        </button>
+
+      </form>
+
+      <div class="divider">
+        <span>ATAU</span>
+      </div>
+
+      <button
+        type="button"
+        class="google-btn"
+        id="googleRegister">
+        Daftar dengan Google
+      </button>
+
+      <div class="auth-footer">
+        <p>
+          Sudah memiliki akun?
+
+          <a href="login.html">
+            Login Sekarang
+          </a>
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Loading -->
+  <div
+    id="loading"
+    class="loading-overlay"
+    style="display:none;">
+
+    <div class="loader"></div>
+
+    <p>
+      Membuat akun...
+    </p>
+
+  </div>
+
+  <!-- Firebase -->
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/register.js"></script>
+
+</body>
+</html>
