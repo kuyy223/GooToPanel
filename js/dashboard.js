@@ -394,6 +394,29 @@ if (orderBtn) {
           }
         );
 
+        try {
+  await fetch(
+    "https://gootopanel-api.tiyovalentino.workers.dev/discord",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        serviceName: selected.name,
+        target: target,
+        quantity: qty,
+        totalPrice: total
+      })
+    }
+  );
+} catch (err) {
+  console.error(
+    "Discord webhook error:",
+    err
+  );
+        }
+
         alert(
           "Pesanan berhasil dibuat."
         );
