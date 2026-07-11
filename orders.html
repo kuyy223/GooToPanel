@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Pesanan - GooToPanel</title>
+
+  <link
+    rel="stylesheet"
+    href="css/admin.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">
+    GooToPanel
+  </div>
+
+  <ul>
+    <li>
+      <a href="admin.html">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+      </a>
+    </li>
+
+    <li class="active">
+      <a href="orders.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Pesanan
+      </a>
+    </li>
+
+    <li id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Logout
+    </li>
+  </ul>
+</div>
+
+<div class="main">
+
+  <div class="topbar">
+    <h2>Daftar Pesanan</h2>
+  </div>
+
+  <div class="table-box">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Layanan</th>
+          <th>Target</th>
+          <th>Jumlah</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody id="ordersTable">
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<script
+  type="module"
+  src="js/orders.js">
+</script>
+
+</body>
+</html>
