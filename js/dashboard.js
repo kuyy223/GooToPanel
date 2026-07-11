@@ -395,22 +395,44 @@ if (orderBtn) {
         );
 
         try {
-  await fetch(
-    "https://gootopanel-api.tiyovalentino.workers.dev/discord",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        serviceName: selected.name,
-        target: target,
-        quantity: qty,
-        totalPrice: total
-      })
-    }
+  const response =
+    await fetch(
+      "https://gootopanel-api.tiyovalentino.workers.dev/discord",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          serviceName:
+            selected.name,
+          target:
+            target,
+          quantity:
+            qty,
+          totalPrice:
+            total
+        })
+      }
+    );
+
+  const text =
+    await response.text();
+
+  alert(
+    "Discord Status: " +
+      response.status +
+      "\n\nResponse:\n" +
+      text
   );
+
 } catch (err) {
+  alert(
+    "Discord Error:\n" +
+    err.message
+  );
+
   console.error(
     "Discord webhook error:",
     err
