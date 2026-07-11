@@ -21,80 +21,130 @@ import {
 /* =========================
    PROTEKSI HALAMAN ADMIN
 ========================= */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
+onAuthStateChanged(
+  auth,
+  async (user) => {
 
-  try {
-    const userRef = doc(
-      db,
-      "users",
-      user.uid
+    console.log(
+      "User Auth:",
+      user
     );
 
-    const userSnap =
-      await getDoc(userRef);
-
-    if (!userSnap.exists()) {
-      await signOut(auth);
+    if (!user) {
       window.location.href =
         "login.html";
       return;
     }
 
-    const data =
-      userSnap.data();
+    try {
+      const userRef =
+        doc(
+          db,
+          "users",
+          user.uid
+        );
 
-    if (data.role !== "admin") {
-      alert("Akses ditolak.");
-      window.location.href =
-        "dashboard.html";
-      return;
-    }
-
-    console.log(
-      "Admin login:",
-      data
-    );
-
-    const adminName =
-      document.getElementById(
-        "adminName"
+      console.log(
+        "Membaca dokumen:",
+        user.uid
       );
 
-    if (adminName) {
-      adminName.textContent =
-        data.name ||
-        "Administrator";
-    }
+      const userSnap =
+        await getDoc(
+          userRef
+        );
 
-    const adminPhoto =
-      document.getElementById(
-        "adminPhoto"
+      console.log(
+        "User document exists:",
+        userSnap.exists()
       );
 
-    if (
-      adminPhoto &&
-      data.photoURL
-    ) {
-      adminPhoto.src =
-        data.photoURL;
+      if (
+        userSnap.exists()
+      ) {
+        console.log(
+          "User data:",
+          userSnap.data()
+        );
+      }
+
+      if (
+        !userSnap.exists()
+      ) {
+        console.error(
+          "Dokumen user tidak ditemukan."
+        );
+
+        await signOut(auth);
+
+        window.location.href =
+          "login.html";
+
+        return;
+      }
+
+      const data =
+        userSnap.data();
+
+      if (
+        data.role !== "admin"
+      ) {
+        alert(
+          "Akses ditolak."
+        );
+
+        window.location.href =
+          "dashboard.html";
+
+        return;
+      }
+
+      console.log(
+        "Admin login:",
+        data
+      );
+
+      const adminName =
+        document.getElementById(
+          "adminName"
+        );
+
+      if (adminName) {
+        adminName.textContent =
+          data.name ||
+          "Administrator";
+      }
+
+      const adminPhoto =
+        document.getElementById(
+          "adminPhoto"
+        );
+
+      if (
+        adminPhoto &&
+        data.photoURL
+      ) {
+        adminPhoto.src =
+          data.photoURL;
+      }
+
+      await loadDashboard();
+
+    } catch (error) {
+      console.error(
+        "Admin Error:",
+        error
+      );
+
+      alert(
+        "Kode error:\n" +
+        error.code +
+        "\n\nPesan:\n" +
+        error.message
+      );
     }
-
-    await loadDashboard();
-
-  } catch (error) {
-    console.error(error);
-
-    alert(
-      error.message +
-      "\n" +
-      error.stack
-    );
   }
-});
+);
 
 /* =========================
    LOAD DASHBOARD
