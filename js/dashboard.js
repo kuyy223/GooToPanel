@@ -235,6 +235,33 @@ const totalPrice =
     "totalPrice"
   );
 
+if (quantity) {
+  quantity.addEventListener(
+    "input",
+    () => {
+      quantity.value =
+        quantity.value.replace(
+          /[^0-9]/g,
+          ""
+        );
+
+      calculatePrice();
+    }
+  );
+
+  quantity.addEventListener(
+    "keydown",
+    (e) => {
+      if (
+        e.key === "." ||
+        e.key === ","
+      ) {
+        e.preventDefault();
+      }
+    }
+  );
+}
+
 function calculatePrice() {
   const selected =
     services.find(
@@ -244,23 +271,25 @@ function calculatePrice() {
     );
 
   const qty =
-    Number(
+    parseInt(
       quantity.value
-    );
+    ) || 0;
 
   if (
     !selected ||
-    !qty
+    qty <= 0
   ) {
-    totalPrice.value =
+    totalPrice.value = "";
+    totalPrice.placeholder =
       "Rp0";
     return;
   }
 
-  const total = Math.ceil(
-  (selected.price / 1000) *
-  qty
-);
+  const total =
+    Math.ceil(
+      (selected.price / 1000) *
+      qty
+    );
 
   totalPrice.value =
     "Rp" +
@@ -272,13 +301,6 @@ function calculatePrice() {
 if (service) {
   service.addEventListener(
     "change",
-    calculatePrice
-  );
-}
-
-if (quantity) {
-  quantity.addEventListener(
-    "input",
     calculatePrice
   );
 }
@@ -319,9 +341,9 @@ if (orderBtn) {
             .trim();
 
         const qty =
-          Number(
-            quantity.value
-          );
+  parseInt(
+    quantity.value
+  ) || 0;
 
         if (
           !target ||
@@ -354,8 +376,10 @@ if (orderBtn) {
         }
 
         const total =
-          selected.price *
-          qty;
+  Math.ceil(
+    (selected.price / 1000) *
+    qty
+  );
 
         await addDoc(
           collection(
@@ -441,18 +465,18 @@ if (orderBtn) {
         }
 
         alert(
-          "Pesanan berhasil dibuat."
-        );
+  "Pesanan berhasil dibuat."
+);
 
-        document.getElementById(
-          "target"
-        ).value = "";
+document.getElementById(
+  "target"
+).value = "";
 
-        quantity.value = "";
+quantity.value = "";
 
-        totalPrice.value =
-          "Rp0";
-
+totalPrice.value = "";
+totalPrice.placeholder =
+  "Rp0";
       } catch (error) {
         console.error(error);
 
