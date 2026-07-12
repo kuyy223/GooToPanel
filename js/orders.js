@@ -72,10 +72,7 @@ onAuthStateChanged(
 function loadOrders() {
 
   onSnapshot(
-    collection(
-      db,
-      "orders"
-    ),
+    collection(db, "orders"),
     (snapshot) => {
 
       table.innerHTML = "";
@@ -113,65 +110,69 @@ function loadOrders() {
             </td>
 
             <td>
+              <select
+                class="status-select"
+                data-id="${docSnap.id}"
+                data-status="${data.status}"
+              >
+                <option value="Pending">
+                  Pending
+                </option>
 
-              ${
-                data.status ===
-                "Pending"
-                ?
-                `
-                <button
-                  class="confirm-btn"
-                  onclick="
-                    confirmOrder(
-                      '${docSnap.id}'
-                    )
-                  ">
-                  Konfirmasi
-                </button>
+                <option value="Processing">
+                  Processing
+                </option>
 
-                <button
-                  class="cancel-btn"
-                  onclick="
-                    rejectOrder(
-                      '${docSnap.id}'
-                    )
-                  ">
-                  Tolak
-                </button>
-                `
-                :
-                "-"
-              }
+                <option value="Success">
+                  Success
+                </option>
 
+                <option value="Cancelled">
+                  Cancelled
+                </option>
+              </select>
             </td>
           </tr>
           `;
         }
       );
+
+      document
+        .querySelectorAll(
+          ".status-select"
+        )
+        .forEach((select) => {
+
+          select.value =
+            select.dataset.status;
+
+          select.addEventListener(
+            "change",
+            async () => {
+
+              try {
+                await updateDoc(
+                  doc(
+                    db,
+                    "orders",
+                    select.dataset.id
+                  ),
+                  {
+                    status:
+                      select.value
+                  }
+                );
+
+              } catch (err) {
+                console.error(err);
+
+                alert(
+                  err.message
+                );
+              }
+            }
+          );
+        });
     }
   );
-}
-
-window.rejectOrder =
-async function(id) {
-
-  await updateDoc(
-    doc(
-      db,
-      "orders",
-      id
-    ),
-    {
-      status:
-        "Cancelled"
-    }
-  );
-};
-
-window.confirmOrder =
-async function(id) {
-
-  alert(
-    "Tahap berikutnya:\nMengirim order ke IndosMM."
-  );
-};
+            }
