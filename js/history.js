@@ -8,19 +8,28 @@ import {
   collection,
   query,
   where,
-  orderBy,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
+/* =========================
+   CEK LOGIN
+========================= */
+onAuthStateChanged(
+  auth,
+  (user) => {
+    if (!user) {
+      window.location.href =
+        "login.html";
+      return;
+    }
+
+    loadHistory(user.uid);
   }
+);
 
-  loadHistory(user.uid);
-});
-
+/* =========================
+   LOAD HISTORY
+========================= */
 function loadHistory(uid) {
   const tbody =
     document.getElementById(
@@ -29,24 +38,29 @@ function loadHistory(uid) {
 
   if (!tbody) return;
 
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="6">
+        Memuat data...
+      </td>
+    </tr>
+  `;
+
   const q = query(
     collection(db, "orders"),
-    where("uid", "==", uid),
-    orderBy(
-      "createdAt",
-      "desc"
-    )
+    where("uid", "==", uid)
   );
 
   onSnapshot(
     q,
+
     (snapshot) => {
       tbody.innerHTML = "";
 
       if (snapshot.empty) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7">
+            <td colspan="6">
               Belum ada pesanan.
             </td>
           </tr>
@@ -54,11 +68,42 @@ function loadHistory(uid) {
         return;
       }
 
+      const rows = [];
+
       snapshot.forEach(
         (docSnap) => {
           const data =
             docSnap.data();
 
+          rows.push(data);
+        }
+      );
+
+      // Urutkan manual berdasarkan tanggal terbaru
+      rows.sort(
+        (a, b) => {
+          const timeA =
+            a.createdAt
+              ? a.createdAt
+                  .toDate()
+                  .getTime()
+              : 0;
+
+          const timeB =
+            b.createdAt
+              ? b.createdAt
+                  .toDate()
+                  .getTime()
+              : 0;
+
+          return (
+            timeB - timeA
+          );
+        }
+      );
+
+      rows.forEach(
+        (data) => {
           let tanggal =
             "-";
 
@@ -75,40 +120,59 @@ function loadHistory(uid) {
 
           tbody.innerHTML += `
             <tr>
-              <td>${data.serviceName}</td>
-              <td>${data.target}</td>
-              <td>${data.quantity}</td>
+              <td>
+                ${data.serviceName || "-"}
+              </td>
+
+              <td>
+                ${data.target || "-"}
+              </td>
+
+              <td>
+                ${data.quantity || 0}
+              </td>
+
               <td>
                 Rp${Number(
-                  data.totalPrice
+                  data.totalPrice || 0
                 ).toLocaleString(
                   "id-ID"
                 )}
               </td>
-              <td>${data.status}</td>
-              <td>${tanggal}</td>
+
+              <td>
+                ${data.status || "Pending"}
+              </td>
+
+              <td>
+                ${tanggal}
+              </td>
             </tr>
           `;
         }
       );
     },
+
     (error) => {
-  console.error(error);
+      console.error(
+        "History Error:",
+        error
+      );
 
-  alert(
-    "Kode: " +
-      error.code +
-      "\nPesan: " +
-      error.message
-  );
+      alert(
+        "Kode: " +
+          error.code +
+          "\nPesan: " +
+          error.message
+      );
 
-  tbody.innerHTML = `
-    <tr>
-      <td colspan="7">
-        ${error.message}
-      </td>
-    </tr>
-  `;
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            Gagal memuat data.
+          </td>
+        </tr>
+      `;
     }
   );
 }
