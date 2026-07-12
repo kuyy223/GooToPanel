@@ -93,15 +93,22 @@ function loadHistory(uid) {
       );
     },
     (error) => {
-      console.error(error);
+  console.error(error);
 
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="7">
-            Gagal memuat data.
-          </td>
-        </tr>
-      `;
+  alert(
+    "Kode: " +
+      error.code +
+      "\nPesan: " +
+      error.message
+  );
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="7">
+        ${error.message}
+      </td>
+    </tr>
+  `;
     }
   );
 }
