@@ -257,9 +257,10 @@ function calculatePrice() {
     return;
   }
 
-  const total =
-    selected.price *
-    qty;
+  const total = Math.ceil(
+  (selected.price / 1000) *
+  qty
+);
 
   totalPrice.value =
     "Rp" +
